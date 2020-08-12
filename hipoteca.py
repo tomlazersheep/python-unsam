@@ -22,6 +22,6 @@ while saldo > 0:
         total_pagado = total_pagado + pago_mensual
 
     mes+=1
-        
+total_pagado = round(total_pagado,2)
 
-print('Total pagado', round(total_pagado, 2), ' en ',mes,' meses.')
+print(f'Total pagado {total_pagado} en {mes} meses.')
