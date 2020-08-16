@@ -10,8 +10,8 @@ def leer_camion(filename):
   except: 
     return 'No encuentro el archivo :('
   csvData = csv.reader(csvRaw)
-  next(csvData)
   truckLoad = []
+  truckLoad.append(next(csvData))
   for csvSingleLineData in csvData:
     truckLoad.append(tuple(csvSingleLineData))
   return truckLoad
@@ -42,15 +42,26 @@ def leer_precios(filename):
 dataCostoCamion = leer_camion('../Data/camion.csv')
 
 tablaDePrecios = leer_precios('../Data/precios.csv')
+print('dataCostoCamion: ', dataCostoCamion)
+print('tablaDePrecios: ', tablaDePrecios)
 
 costoTotal = 0
+headings = dataCostoCamion[0]
 for cajones in dataCostoCamion:
-  costoTotal += int(cajones[1])*float(cajones[2])
+  try:
+    cajonesFormat = dict(zip(headings,cajones))
+    costoTotal += int(cajonesFormat['cajones']) * float(cajonesFormat['precio'])
+  except:
+    pass
 
 facturacionTotal = 0
 for cajones in dataCostoCamion:
-  facturacionTotal += int(cajones[1]) * tablaDePrecios[cajones[0]]
-
+  try:
+    cajonesFormat = dict(zip(headings, cajones))
+    print(cajonesFormat)
+    facturacionTotal += int(cajonesFormat['cajones']) * tablaDePrecios[cajonesFormat['nombre']]
+  except: 
+    pass
 gananciaNeta = round(facturacionTotal - costoTotal,2)
 
 print(f'En total se gasto {costoTotal} y se facturó\

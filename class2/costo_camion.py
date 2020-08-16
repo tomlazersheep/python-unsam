@@ -10,13 +10,15 @@ def costo_camion(dataUrl):
   with open(dataUrl) as truckDataRaw:
     # uso csv module
     truckData = csv.reader(truckDataRaw)
+    headings = next(truckData)
     cost = 0
-    for boxData in truckData:
+    for i,boxData in enumerate(truckData, start=2):
+      formatData = dict(zip(headings,boxData))
       #para cada caja intento sacarle los datos
       try:
-        cost += float(boxData[1]) * float(boxData[2])
+        cost += int(formatData['cajones']) * float(formatData['precio'])
       except ValueError:
-        print('Hay una línea con datos ilegibles en el archivo! Ignorando...')
+        print(f'Línea {i} con datos ilegibles en el archivo! Ignorando...{boxData}')
         continue 
     return cost 
 
@@ -25,6 +27,6 @@ costo = costo_camion('../Data/missing.csv')
 
 print(f'Costo Total en missing.csv: {costo}')
 
-costo = costo_camion('../Data/camion.csv')
+costo = costo_camion('../Data/fecha_camion.csv')
 
-print(f'Costo Total en camion.csv: {costo}')
+print(f'Costo Total en fecha_camion.csv: {costo}')
