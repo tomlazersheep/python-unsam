@@ -47,7 +47,7 @@ def contar_ejemplares(lista_arboles):
 
 #combiná esta función con leer_parque() y con el método most_common() para informar las cinco
 #  especies más frecuentes en cada uno de los siguientes parques:
-parks = ['GENERAL PAZ', 'ANDES, LOS', 'CENTENARIO']
+parks = ['GENERAL PAZ', 'ANDES, LOS', 'CENTENARIO', 'PEREYRA, LEONARDO']
 
 def get5MostCommon(park):
   return contar_ejemplares(leer_parque('../Data/arbolado-en-espacios-verdes.csv', park)).most_common(5)
